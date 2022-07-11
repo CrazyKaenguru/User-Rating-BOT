@@ -53,6 +53,7 @@ for(const file of commandFiles){
         await db.add(`user_${message.author.tag}.reviewed`,  0 )
         await db.add(`user_${message.author.tag}.score`,  0 )
         await db.add(`user_${message.author.tag}.reviews`, 0 )
+        await db.push(`user_${message.author.tag}.reviewedusers`, "placeholder");
         console.log(await db.get(`user_${message.author.tag}`))
             
     }
@@ -63,6 +64,10 @@ for(const file of commandFiles){
        if(command=="review")
        {
       client.commands.get("review").execute(db,client,message,args);
+       }
+       if(command=="reviews")
+       {
+      client.commands.get("reviews").execute(db,client,message,args);
        }
        
     })();

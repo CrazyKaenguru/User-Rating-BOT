@@ -14,6 +14,7 @@ module.exports = {
     (async () => {
       var usertoreviewid = args[0].replace("<@", "").replace(">", "");
       var usertoreviewtag = await client.users.cache.get(usertoreviewid).tag;
+      if(message.author.tag==usertoreviewtag){return;}
       var reviewscore=args[1]
       if(reviewscore>5||reviewscore<1||reviewscore==undefined){message.reply({ embeds: [wrongformatembed] });return;}
       if ((await db.get(`user_${usertoreviewtag}.score`)) == undefined) {
@@ -22,14 +23,14 @@ module.exports = {
         await db.add(`user_${usertoreviewtag}.reviewed`,  0 )
         await db.add(`user_${usertoreviewtag}.score`,  0 )
         await db.add(`user_${usertoreviewtag}.reviews`, 0 )
+        await db.push(`user_${usertoreviewtag}.reviewedusers`, "placeholder");
       }
-      await db.push(`user_${message.author.tag}.reviewedusers`, usertoreviewtag);
-
-
-
-     // if(((await db.get(`user_${message.author.tag}.info`)).indexOf(usertoreviewtag)!=-1)){message.reply({ embeds: [alreaedyreviewedembed] });return;}
-    // if(await db.get(`user_${message.author.tag}.reviewedusers`))
-     console.log((await db.get(`user_${message.author.tag}.reviewedusers`)).indexOf(usertoreviewtag))
+      
+     if((await db.get(`user_${message.author.tag}.reviewedusers`)).indexOf(usertoreviewtag)!=-1){message.reply({ embeds: [alreaedyreviewedembed] });return;}
+     await db.push(`user_${message.author.tag}.reviewedusers`, usertoreviewtag);
+     await db.add(`user_${usertoreviewtag}.reviews`, 1)
+     await db.add(`user_${usertoreviewtag}.score`, parseFloat(reviewscore))
+     await db.add(`user_${message.author.tag}.reviewed`,  1 )
      
       var reviewmessage = (await client.users.cache.get(usertoreviewid).username) +" has been reviewed!";
       const embed = new MessageEmbed()
