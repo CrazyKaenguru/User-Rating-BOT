@@ -46,10 +46,14 @@ for(const file of commandFiles){
     if(await db.get(`user_${message.author.tag}.score`)==undefined)
     {
       console.log("create")
-        await db.set(`user_${message.author.tag}`, { score:0 })
-        await db.push(`user_${message.author.tag}.info`,  "_reviewed_0" )
-        await db.push(`user_${message.author.tag}.info`, "_reviews_0" )
-        console.log(await db.get(`user_${message.author.tag}.info`))
+       // await db.set(`user_${message.author.tag}`, { score:0 })
+        //await db.push(`user_${message.author.tag}.info`,  "_reviewed_0" )
+       // await db.push(`user_${message.author.tag}.info`, "_reviews_0" )
+        await db.set(`user_${message.author.tag}`,{description:""})
+        await db.add(`user_${message.author.tag}.reviewed`,  0 )
+        await db.add(`user_${message.author.tag}.score`,  0 )
+        await db.add(`user_${message.author.tag}.reviews`, 0 )
+        console.log(await db.get(`user_${message.author.tag}`))
             
     }
     if(command=="ping")
