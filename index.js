@@ -47,6 +47,9 @@ for(const file of commandFiles){
     {
       console.log("create")
         await db.set(`user_${message.author.tag}`, { score:0 })
+        await db.push(`user_${message.author.tag}.info`,  "_reviewed_0" )
+        await db.push(`user_${message.author.tag}.info`, "_reviews_0" )
+        console.log(await db.get(`user_${message.author.tag}.info`))
             
     }
     if(command=="ping")
