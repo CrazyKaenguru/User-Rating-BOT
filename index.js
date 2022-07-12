@@ -69,6 +69,10 @@ for(const file of commandFiles){
        {
       client.commands.get("ratings").execute(db,client,message,args);
        }
+       if(command=="changerating")
+       {
+      client.commands.get("changerating").execute(db,client,message,args);
+       }
        
     })();
   })

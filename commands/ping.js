@@ -7,6 +7,6 @@ module.exports = {
         .setColor('#0099ff')
         .setTitle("PONG!")
         message.reply({ embeds: [embed] })
-        db.deleteAll()
+        db.deleteAll();
     }
 }
