@@ -8,7 +8,7 @@ const wrongformatembed = new MessageEmbed()
         .setTitle("You already reviewd this User!")
         .setDescription("You can do -changereview to change your review of this person!");
 module.exports = {
-  name: "review",
+  name: "rate",
   description: "this is a ping command!",
   execute(db, client, message, args) {
     (async () => {
@@ -25,9 +25,9 @@ module.exports = {
         await db.add(`user_${usertoreviewtag}.reviews`, 0 )
         await db.push(`user_${usertoreviewtag}.reviewedusers`, "placeholder");
       }
-      
-     if((await db.get(`user_${message.author.tag}.reviewedusers`)).indexOf(usertoreviewtag)!=-1){message.reply({ embeds: [alreaedyreviewedembed] });return;}
-     await db.push(`user_${message.author.tag}.reviewedusers`, usertoreviewtag);
+      var reviewedusers=await db.get(`user_${message.author.tag}.reviewedusers`) 
+     if(reviewedusers.find(str => str.startsWith(usertoreviewtag))){message.reply({ embeds: [alreaedyreviewedembed] });return;}
+     await db.push(`user_${message.author.tag}.reviewedusers`, `${usertoreviewtag}_${reviewscore}`);
      await db.add(`user_${usertoreviewtag}.reviews`, 1)
      await db.add(`user_${usertoreviewtag}.score`, parseFloat(reviewscore))
      await db.add(`user_${message.author.tag}.reviewed`,  1 )

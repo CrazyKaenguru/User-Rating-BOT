@@ -61,13 +61,13 @@ for(const file of commandFiles){
        {
       client.commands.get("ping").execute(db,client,message,args);
        }
-       if(command=="review")
+       if(command=="rate")
        {
-      client.commands.get("review").execute(db,client,message,args);
+      client.commands.get("rate").execute(db,client,message,args);
        }
-       if(command=="reviews")
+       if(command=="ratings")
        {
-      client.commands.get("reviews").execute(db,client,message,args);
+      client.commands.get("ratings").execute(db,client,message,args);
        }
        
     })();

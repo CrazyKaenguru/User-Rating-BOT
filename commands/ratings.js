@@ -1,6 +1,6 @@
 const { MessageEmbed } = require('discord.js');
 module.exports = {
-    name: 'reviews',
+    name: 'ratings',
     description: "this is a ping command!",
     execute(db,client,message, args){(async () => {
         if(args[0]==undefined){return;}
