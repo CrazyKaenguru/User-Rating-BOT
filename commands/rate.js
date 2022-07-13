@@ -26,7 +26,7 @@ module.exports = {
         await db.push(`user_${usertoreviewtag}.reviewedusers`, "placeholder");
       }
       var reviewedusers=await db.get(`user_${message.author.tag}.reviewedusers`) 
-     if(reviewedusers.find(str => str.startsWith(usertoreviewtag))){message.reply({ embeds: [alreaedyreviewedembed] });return;}
+     if(reviewedusers.find(str => str.startsWith(usertoreviewtag))){client.commands.get("changerating").execute(db,client,message,args);return;}
      await db.push(`user_${message.author.tag}.reviewedusers`, `${usertoreviewtag}_${reviewscore}`);
      await db.add(`user_${usertoreviewtag}.reviews`, 1)
      await db.add(`user_${usertoreviewtag}.score`, parseFloat(reviewscore))
