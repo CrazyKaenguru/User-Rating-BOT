@@ -2,11 +2,7 @@ const { MessageEmbed } = require("discord.js");
 const wrongformatembed = new MessageEmbed()
         .setColor("#0099ff")
         .setTitle("Wrong Format!")
-        .setDescription("Please do -review <@user to review> <review-score from 1 to 5>");
-        const alreaedyreviewedembed = new MessageEmbed()
-        .setColor("#0099ff")
-        .setTitle("You already reviewd this User!")
-        .setDescription("You can do -changereview to change your review of this person!");
+        .setDescription("Please do -rate <@user to rate> <rating-score from 1 to 5>");
 module.exports = {
   name: "rate",
   description: "this is a ping command!",
@@ -26,7 +22,7 @@ module.exports = {
         await db.push(`user_${usertoreviewtag}.reviewedusers`, "placeholder");
       }
       var reviewedusers=await db.get(`user_${message.author.tag}.reviewedusers`) 
-     if(reviewedusers.find(str => str.startsWith(usertoreviewtag))){client.commands.get("changerating").execute(db,client,message,args);return;}
+     if(reviewedusers.find(str => str.startsWith(usertoreviewtag))){client.commands.get("changerating").execute(db,client,message,args);console.log("changing");return;}
      await db.push(`user_${message.author.tag}.reviewedusers`, `${usertoreviewtag}_${reviewscore}`);
      await db.add(`user_${usertoreviewtag}.reviews`, 1)
      await db.add(`user_${usertoreviewtag}.score`, parseFloat(reviewscore))

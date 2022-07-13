@@ -2,7 +2,7 @@ const { MessageEmbed } = require('discord.js');
 const wrongformatembed = new MessageEmbed()
         .setColor("#0099ff")
         .setTitle("Wrong Format!")
-        .setDescription("Please do -review <@user to review> <review-score from 1 to 5>");
+        .setDescription("Please do -rate <@user to rate> <rating-score from 1 to 5>");
 module.exports = {
     name: 'changerating',
     description: "this is a ping command!",
@@ -14,8 +14,9 @@ module.exports = {
         var reviewedusers=await db.get(`user_${message.author.tag}.reviewedusers`) 
         var oldratingscore=(await db.get(`user_${message.author.tag}.reviewedusers`)).toString().split("_").pop()
         await db.add(`user_${usertogettag}.score`,- parseFloat(oldratingscore))
-        await db.add(`user_${usertogettag}.score`,newScore)
+        await db.add(`user_${usertogettag}.score`,parseFloat(newScore))
        await db.pull(`user_${message.author.tag}.reviewedusers`,`${reviewedusers.find(str => str.startsWith(usertogettag))}`)
+       await db.push(`user_${message.author.tag}.reviewedusers`, `${usertogettag}_${newScore}`)
         console.log(reviewedusers.find(str => str.startsWith(usertogettag)))
         const embed = new MessageEmbed()
         .setColor('#0099ff')
